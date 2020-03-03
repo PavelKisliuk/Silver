@@ -12,7 +12,7 @@ import java.util.Objects;
  * <p>
  *
  * @author Kisliuk Pavel Sergeevich
- * @since 12.0
+ * @since 1.8
  */
 public class Human {
 	private String name;
@@ -54,12 +54,24 @@ public class Human {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public Integer getAge() {
 		return age;
 	}
 
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
 	public LocalDate getBirthday() {
 		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
 	}
 
 	@Override
