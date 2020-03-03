@@ -10,7 +10,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.PavelKisliuk.controller.MainWindowController">
     <children>
-        <TreeTableView fx:id="mainTreeTableView" editable="true" focusTraversable="false" prefHeight="200.0" prefWidth="500.0">
+        <TreeTableView fx:id="mainTreeTableView" editable="true" focusTraversable="false" prefHeight="200.0" prefWidth="500.0" stylesheets="@../css/rules.css">
             <columns>
                 <TreeTableColumn fx:id="nameTreeTableColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Name" />
                 <TreeTableColumn fx:id="ageTreeTableColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Age" />
@@ -25,17 +25,17 @@
         </TreeTableView>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
             <children>
-                <Button fx:id="addButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Add">
+                <Button fx:id="addButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" stylesheets="@../css/rules.css" text="Add">
                     <font>
                         <Font name="Times New Roman" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Edit">
+                <Button fx:id="editButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" stylesheets="@../css/rules.css" text="Edit">
                     <font>
                         <Font name="Times New Roman" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="deleteButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" text="Delete">
+                <Button fx:id="deleteButton" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="70.0" stylesheets="@../css/rules.css" text="Delete">
                     <font>
                         <Font name="Times New Roman" size="16.0" />
                     </font>

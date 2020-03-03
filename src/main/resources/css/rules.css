@@ -1,0 +1,21 @@
+.button {
+    -fx-background-color: #5A4C65;
+    -fx-text-fill: #ffffff;
+}
+
+.button:selected {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #5A4C65;
+}
+
+.tree-table-view {
+    -fx-background-color: #dafffc;
+}
+
+.tree-table-row-cell {
+    -fx-background-color: #b1fff7;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: #2eb4b4;
+}

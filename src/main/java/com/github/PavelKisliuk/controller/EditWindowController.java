@@ -5,6 +5,7 @@
 package com.github.PavelKisliuk.controller;
 
 import com.github.PavelKisliuk.entity.Human;
+import com.github.PavelKisliuk.util.DataValidator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -51,10 +52,22 @@ public class EditWindowController {
 	void initialize() {
 		saveButton.setOnAction(event -> saveButtonOnAction());
 		cancelButton.setOnAction(event -> cancelButtonOnAction());
+
+		nameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > DataValidator.MAX_NAME_LENGTH) {
+				nameTextField.setText(oldValue);
+			}
+		});
+		ageTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue.length() > DataValidator.MAX_AGE_LENGTH ||
+					!DataValidator.isNumeric(newValue)) {
+				ageTextField.setText(oldValue);
+			}
+		});
 	}
 
 	private void saveButtonOnAction() {
-		if(validate()) {
+		if (validate()) {
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setTitle("Warning!!!");
 			alert.setContentText("Enter data in every field!");

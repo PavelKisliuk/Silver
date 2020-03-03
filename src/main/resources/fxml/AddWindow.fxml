@@ -59,12 +59,12 @@
       </HBox>
       <HBox alignment="CENTER" spacing="50.0">
          <children>
-            <Button fx:id="saveButton" defaultButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Save">
+            <Button fx:id="saveButton" defaultButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" stylesheets="@../css/rules.css" text="Save">
                <font>
                   <Font name="Times New Roman" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Cancel">
+            <Button fx:id="cancelButton" cancelButton="true" focusTraversable="false" mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" stylesheets="@../css/rules.css" text="Cancel">
                <font>
                   <Font name="Times New Roman" size="18.0" />
                </font>
