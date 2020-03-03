@@ -1,17 +1,23 @@
+/*  By Pavel Kisliuk, 31.08.2019
+ *  This is class for education and nothing rights don't reserved.
+ */
+
 package com.github.PavelKisliuk.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
+/**
+ * The {@code Human} class is simple entity class describing human.
+ * <p>
+ *
+ * @author Kisliuk Pavel Sergeevich
+ * @since 12.0
+ */
 public class Human {
 	private String name;
 	private Integer age;
 	private Date birthday;
-
-	public Human(String name, Integer age, Date birthday) {
-		this.name = name;
-		this.age = age;
-		this.birthday = birthday;
-	}
 
 	public Human() {
 	}
@@ -38,5 +44,34 @@ public class Human {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Human human = (Human) o;
+
+		if (!Objects.equals(name, human.name)) return false;
+		if (!Objects.equals(age, human.age)) return false;
+		return Objects.equals(birthday, human.birthday);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (age != null ? age.hashCode() : 0);
+		result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Human{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				", birthday=" + birthday +
+				'}';
 	}
 }
