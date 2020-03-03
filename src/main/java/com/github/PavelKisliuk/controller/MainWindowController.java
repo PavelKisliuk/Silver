@@ -1,24 +1,25 @@
 package com.github.PavelKisliuk.controller;
 
 import com.github.PavelKisliuk.entity.Human;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-import javax.transaction.TransactionRequiredException;
+import java.io.IOException;
 import java.util.Date;
 
 public class MainWindowController {
+	private static final String ADD_WINDOW_PATH = "/fxml/AddWindow.fxml";
+
+	private AddWindowController addWindowController;
 
 	@FXML
 	private TreeTableView<Human> mainTreeTableView;
@@ -40,20 +41,6 @@ public class MainWindowController {
 
 	@FXML
 	private Button deleteButton;
-
-	private ObservableList<Human> accCollection = FXCollections.observableArrayList(); //тут храним аккаунты
-
-	@FXML
-	private TableView<Human> TV;
-
-	@FXML
-	private TableColumn<Human, String> TC1;
-
-	@FXML
-	private TableColumn<Human, Integer> TC2;
-
-	@FXML
-	private TableColumn<Human, Date> C3;
 
 	@FXML
 	void initialize() {
@@ -78,21 +65,62 @@ public class MainWindowController {
 		mainTreeTableView.setShowRoot(false);
 		//_________________________________________________
 
-		accCollection.add(human);
-		TV.setItems(accCollection);
-		TC1.setCellValueFactory(new PropertyValueFactory<>("name"));
-		TC2.setCellValueFactory(new PropertyValueFactory<>("age"));
-		C3.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-
-		addButton.setOnAction(event -> {
-			TreeItem<Human> root = mainTreeTableView.getRoot();
-			root.getChildren().add(new TreeItem<>(human));
-		});
+		addButton.setOnAction(event -> addButtonOnAction());
 
 		editButton.setOnAction(event -> {
 			TreeItem<Human> temp = mainTreeTableView.getSelectionModel().getSelectedItem();
 			temp.getValue().setName("Eduard");
 			mainTreeTableView.refresh();
 		});
+	}
+
+	private void addButtonOnAction() {
+		startDialogueWindow(ADD_WINDOW_PATH);
+		if(!(addWindowController.isCancelPressed())) {
+			TreeItem<Human> newItem = new TreeItem<>(addWindowController.getHuman());
+			TreeItem<Human> root = mainTreeTableView.getRoot();
+			root.getChildren().add(newItem);
+		}
+	}
+
+	private void startDialogueWindow(String FXMLFile) {
+		//Stage adjustment
+		//-----------------------------------------------
+		Stage dialogueStage = new Stage();
+		dialogueStage.setResizable(false);
+		dialogueStage.sizeToScene();
+		dialogueStage.setTitle("Dialogue");
+		dialogueStage.centerOnScreen();
+
+		//FXML adjustment
+		//-----------------------------------------------
+		FXMLLoader fxmlLoaderDialogue = new FXMLLoader();
+		fxmlLoaderDialogue.setLocation(getClass().getResource(FXMLFile));
+		Parent fxmlDialogue = null;
+		try {
+			fxmlDialogue = fxmlLoaderDialogue.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		switch (FXMLFile) {
+			case ADD_WINDOW_PATH:
+				addWindowController = fxmlLoaderDialogue.getController();
+				break;
+			default:
+				break;
+		}
+
+		//modality adjustment
+		//-----------------------------------------------
+		dialogueStage.initModality(Modality.WINDOW_MODAL);
+		dialogueStage.initOwner(addButton.getScene().getWindow());
+
+		//start-up window
+		//-----------------------------------------------
+		Scene dialogue = new Scene(fxmlDialogue);
+		dialogueStage.setScene(dialogue);
+		dialogueStage.showAndWait();
 	}
 }
