@@ -1,4 +1,4 @@
-/*  By Pavel Kisliuk, 31.08.2019
+/*  By Pavel Kisliuk, 03.03.2020
  *  This is class for education and nothing rights don't reserved.
  */
 
@@ -15,27 +15,36 @@ import java.util.Objects;
  * @since 1.8
  */
 public class Human {
+	private static final String NOT_DEFAULT = "not default";
+
 	private String name;
 	private Integer age;
 	private LocalDate birthday;
 
 	public static class Builder {
-		private String name;
-		private Integer age;
-		private LocalDate birthday;
+		private String name = NOT_DEFAULT;
+		private Integer age = 0;
+		private LocalDate birthday = LocalDate.of(1, 1, 1);
 
 		public Builder name(String name) {
-			this.name = name;
+			if (name != null) {
+				this.name = name;
+			}
+
 			return this;
 		}
 
 		public Builder age(Integer age) {
-			this.age = age;
+			if (age != null) {
+				this.age = age;
+			}
 			return this;
 		}
 
-		public Builder birthday(LocalDate birthday){
-			this.birthday = birthday;
+		public Builder birthday(LocalDate birthday) {
+			if (birthday != null) {
+				this.birthday = birthday;
+			}
 			return this;
 		}
 

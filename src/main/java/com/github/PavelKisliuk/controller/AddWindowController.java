@@ -1,17 +1,35 @@
+/*  By Pavel Kisliuk, 03.03.2020
+ *  This is class for education and nothing rights don't reserved.
+ */
+
 package com.github.PavelKisliuk.controller;
 
 import com.github.PavelKisliuk.entity.Human;
+import com.github.PavelKisliuk.service.AddService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.time.LocalDate;
-import java.util.Date;
-
+/**
+ * The {@code AddWindowController} class is controller for obtaining data form client.
+ * <p>
+ *
+ * @author Kisliuk Pavel Sergeevich
+ * @since 1.8
+ */
 public class AddWindowController {
+	/**
+	 * Instance for data insertion.
+	 */
 	private Human human;
+
+	/**
+	 * Flag for checking data insertion.
+	 */
 	private boolean isCancelPressed = true;
 
 	@FXML
@@ -22,6 +40,9 @@ public class AddWindowController {
 
 	@FXML
 	private DatePicker birthdayDatePicker;
+
+	@FXML
+	private HBox dataHBox;
 
 	@FXML
 	private Button saveButton;
@@ -36,11 +57,15 @@ public class AddWindowController {
 	}
 
 	private void saveButtonOnAction() {
-		human = new Human();
-		human.setName(nameTextField.getText());
-		human.setAge(Integer.parseInt(ageTextField.getText()));
-		LocalDate localDate = birthdayDatePicker.getValue();
-		human.setBirthday(new Date(localDate.toEpochDay()));
+		if(validate()) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Warning!!!");
+			alert.setContentText("Enter data in every field!");
+			alert.showAndWait();
+			return;
+		}
+
+		human = AddService.INSTANCE.serve(dataHBox);
 		isCancelPressed = false;
 		cancelButtonOnAction();
 	}
@@ -56,5 +81,13 @@ public class AddWindowController {
 
 	public boolean isCancelPressed() {
 		return isCancelPressed;
+	}
+
+	private boolean validate() {
+			return nameTextField == null ||
+					nameTextField.getText().equals("") ||
+					ageTextField == null ||
+					ageTextField.getText().equals("") ||
+					birthdayDatePicker.getValue() == null;
 	}
 }
