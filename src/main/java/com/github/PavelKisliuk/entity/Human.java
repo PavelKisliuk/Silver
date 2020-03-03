@@ -4,7 +4,7 @@
 
 package com.github.PavelKisliuk.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -17,33 +17,49 @@ import java.util.Objects;
 public class Human {
 	private String name;
 	private Integer age;
-	private Date birthday;
+	private LocalDate birthday;
 
-	public Human() {
+	public static class Builder {
+		private String name;
+		private Integer age;
+		private LocalDate birthday;
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder age(Integer age) {
+			this.age = age;
+			return this;
+		}
+
+		public Builder birthday(LocalDate birthday){
+			this.birthday = birthday;
+			return this;
+		}
+
+		public Human build() {
+			return new Human(this);
+		}
+	}
+
+	private Human(Builder builder) {
+		this.name = builder.name;
+		this.age = builder.age;
+		this.birthday = builder.birthday;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Date getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
 	}
 
 	@Override
